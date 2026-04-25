@@ -4,7 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>画像ギャラリー</title>
+
 <style>
+body {
+  font-family: sans-serif;
+  text-align: center;
+}
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -15,7 +22,6 @@
 .gallery img {
   width: 100%;
   max-width: 300px;
-  height: auto;
   cursor: pointer;
   border-radius: 8px;
 }
@@ -28,8 +34,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.9);
-  text-align: center;
+  background: rgba(0,0,0,0.9);
 }
 
 .lightbox img {
@@ -38,26 +43,66 @@
   margin-top: 60px;
 }
 
-.close {
+.close, .prev, .next {
   position: absolute;
-  top: 20px;
-  right: 25px;
   color: white;
   font-size: 40px;
   cursor: pointer;
 }
 
-.prev, .next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: white;
-  font-size: 40px;
-  cursor: pointer;
-  padding: 10px;
-}
-
-.prev { left: 10px; }
-.next { right: 10px; }
+.close { top: 20px; right: 30px; }
+.prev { top: 50%; left: 10px; transform: translateY(-50%); }
+.next { top: 50%; right: 10px; transform: translateY(-50%); }
 </style>
 </head>
+
+<body>
+
+<h2>画像クリックで拡大</h2>
+
+<div class="gallery">
+  <img src="https://picsum.photos/400?1" onclick="openLightbox(0)">
+  <img src="https://picsum.photos/400?2" onclick="openLightbox(1)">
+  <img src="https://picsum.photos/400?3" onclick="openLightbox(2)">
+</div>
+
+<div id="lightbox" class="lightbox">
+  <span class="close" onclick="closeLightbox()">×</span>
+  <span class="prev" onclick="changeSlide(-1)">❮</span>
+  <span class="next" onclick="changeSlide(1)">❯</span>
+  <img id="lightbox-img">
+</div>
+
+<script>
+const images = [
+  "https://picsum.photos/800?1",
+  "https://picsum.photos/800?2",
+  "https://picsum.photos/800?3"
+];
+
+let currentIndex = 0;
+
+function openLightbox(i) {
+  currentIndex = i;
+  document.getElementById("lightbox").style.display = "block";
+  showImage();
+}
+
+function showImage() {
+  document.getElementById("lightbox-img").src = images[currentIndex];
+}
+
+function changeSlide(n) {
+  currentIndex += n;
+  if (currentIndex < 0) currentIndex = images.length - 1;
+  if (currentIndex >= images.length) currentIndex = 0;
+  showImage();
+}
+
+function closeLightbox() {
+  document.getElementById("lightbox").style.display = "none";
+}
+</script>
+
+</body>
+</html>
