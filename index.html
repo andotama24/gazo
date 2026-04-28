@@ -8,7 +8,6 @@
 
 <style>
 body {
-  margin: 0;  /*余白削除*/
   font-family: sans-serif;
   text-align: center;
 }
@@ -17,13 +16,12 @@ body {
 .note{
   font-size: 12px;
   color: #666;
-  margin-top: 0px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 25px;
 }
 
 /* ギャラリー */
 .gallery {
-  margin-top: 0;  /* 上の余白を詰める */
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
@@ -68,7 +66,7 @@ body {
 /* 画像 */
 .lightbox img {
   max-width: 90%;
-  max-height: 90%;   /* ←少し大きくして改善 */
+  max-height: 75%;   /* ←少し大きくして改善 */
 }
 
 /* タイトル */
@@ -109,7 +107,7 @@ body {
 @media (max-width: 600px) {
 
   .lightbox img {
-    max-height: 100%;   /* ←画像を優先表示 */
+    max-height: 80%;   /* ←画像を優先表示 */
   }
 
   .lightbox-title {
