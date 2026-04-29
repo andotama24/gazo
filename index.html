@@ -4,213 +4,122 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>画像ギャラリー</title>
+<title>ギャラリー</title>
 
 <style>
 body {
+  margin: 0;
   font-family: sans-serif;
-  text-align: center;
-}
-
-/* 説明文 */
-.note{
-  font-size: 12px;
-  color: #666;
-  margin-top: 5px;
-  margin-bottom: 25px;
 }
 
 /* ギャラリー */
 .gallery {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
+  flex-direction: column;
 }
 
-.item {
-  width: 200px;
-}
-
-.item img {
+.gallery img {
   width: 100%;
-  border-radius: 8px;
+  height: auto;
   cursor: pointer;
 }
 
-.caption {
-  margin-top: 5px;
-  font-size: 14px;
-}
-
-/* ライトボックス（←ここ修正） */
+/* ライトボックス */
 .lightbox {
-  display: none;   /* ←これを維持（重要） */
+  display: none;
   position: fixed;
-  z-index: 9999;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.9);
-}
-
-/* 中身を中央配置 */
-.lightbox.active {
-  display: flex;
-  flex-direction: column;
+  background: black;
   justify-content: center;
   align-items: center;
 }
 
-/* 画像 */
+/* 拡大画像（1枚＝画面いっぱい） */
 .lightbox img {
-  max-width: 90%;
-  max-height: 75%;   /* ←少し大きくして改善 */
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
-/* タイトル */
-.lightbox-title {
-  color: white;
-  font-size: 18px;
-  margin-top: 8px;
-  background: rgba(0,0,0,0.4);
-  padding: 6px 10px;
-  border-radius: 6px;
-}
-
-/* キャプション */
-.lightbox-caption {
-  color: white;
-  font-size: 14px;
-  margin-top: 6px;
-  background: rgba(0,0,0,0.4);
-  padding: 8px 12px;
-  border-radius: 6px;
-  max-width: 90%;
-}
-
-/* ボタン */
-.close, .prev, .next {
+/* ボタン（画像の中に表示） */
+.nav {
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
   color: white;
-  font-size: 36px;
   cursor: pointer;
+  padding: 10px;
   user-select: none;
 }
 
-.close { top: 15px; right: 20px; }
-.prev { top: 50%; left: 10px; transform: translateY(-50%); }
-.next { top: 50%; right: 10px; transform: translateY(-50%); }
+.prev { left: 10px; }
+.next { right: 10px; }
 
-/* スマホ最適化（重要） */
-@media (max-width: 600px) {
-
-  .lightbox img {
-    max-height: 80%;   /* ←画像を優先表示 */
-  }
-
-  .lightbox-title {
-    font-size: 14px;
-    padding: 5px 8px;
-  }
-
-  .lightbox-caption {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
+/* 閉じる */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
 }
 </style>
 </head>
 
 <body>
 
-<p class="note">画像クリックで拡大</p>
+<div class="gallery">
+  <img src="画像1URL">
+  <img src="画像2URL">
+  <img src="画像3URL">
+</div>
 
-<div class="gallery" id="gallery"></div>
-
-<div id="lightbox" class="lightbox">
-  <span class="close" onclick="closeLightbox()">×</span>
-  <span class="prev" onclick="changeSlide(-1)">❮</span>
-  <span class="next" onclick="changeSlide(1)">❯</span>
-
+<!-- ライトボックス -->
+<div class="lightbox" id="lightbox">
+  <span class="close" onclick="closeBox()">×</span>
+  <span class="nav prev" onclick="change(-1)">＜</span>
   <img id="lightbox-img">
-  <div id="lightbox-title" class="lightbox-title"></div>
-  <div id="lightbox-caption" class="lightbox-caption"></div>
+  <span class="nav next" onclick="change(1)">＞</span>
 </div>
 
 <script>
-const images = [
-  {
-    src: "https://andotama24.github.io/gazo/拝殿正面.JPG",
-    title: "拝殿正面",
-    caption: "向拝には陣笠の形をした唐破風屋根がかかっている。"
-  },
-  {
-    src: "https://andotama24.github.io/gazo/鳥居.JPG",
-    title: "鳥居",
-    caption: "神社の入口を示す重要な建造物。"
-  },
-  {
-    src: "https://andotama24.github.io/gazo/手水舎.JPG",
-    title: "手水舎",
-    caption: "参拝前に手と口を清める場所。"
-  }
-];
+const images = document.querySelectorAll('.gallery img');
+const lightbox = document.getElementById('lightbox');
+const lightImg = document.getElementById('lightbox-img');
 
-const gallery = document.getElementById("gallery");
+let current = 0;
 
+// クリックで拡大
 images.forEach((img, index) => {
-  const item = document.createElement("div");
-  item.className = "item";
-
-  item.innerHTML = `
-    <img src="${img.src}" onclick="openLightbox(${index})">
-    <div class="caption">${img.title}</div>
-  `;
-
-  gallery.appendChild(item);
+  img.onclick = () => {
+    current = index;
+    show();
+    lightbox.style.display = "flex";
+  };
 });
 
-let currentIndex = 0;
-
-function openLightbox(i) {
-  currentIndex = i;
-  const lb = document.getElementById("lightbox");
-  lb.classList.add("active");   // ←ここ変更
-  showImage();
+// 表示
+function show() {
+  lightImg.src = images[current].src;
 }
 
-function showImage() {
-  document.getElementById("lightbox-img").src = images[currentIndex].src;
-  document.getElementById("lightbox-title").innerText = images[currentIndex].title;
-  document.getElementById("lightbox-caption").innerText = images[currentIndex].caption;
+// 閉じる
+function closeBox() {
+  lightbox.style.display = "none";
 }
 
-function changeSlide(n) {
-  currentIndex += n;
-  if (currentIndex < 0) currentIndex = images.length - 1;
-  if (currentIndex >= images.length) currentIndex = 0;
-  showImage();
+// 次へ・前へ
+function change(step) {
+  current += step;
+  if (current < 0) current = images.length - 1;
+  if (current >= images.length) current = 0;
+  show();
 }
-
-function closeLightbox() {
-  document.getElementById("lightbox").classList.remove("active"); // ←ここ変更
-}
-
-/* スワイプ */
-let startX = 0;
-const lightbox = document.getElementById("lightbox");
-
-lightbox.addEventListener("touchstart", e => {
-  startX = e.touches[0].clientX;
-});
-
-lightbox.addEventListener("touchend", e => {
-  let diff = e.changedTouches[0].clientX - startX;
-  if (diff > 50) changeSlide(-1);
-  if (diff < -50) changeSlide(1);
-});
 </script>
 
 </body>
