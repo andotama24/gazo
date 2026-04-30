@@ -4,44 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>神社ギャラリー</title>
-
 <style>
 body {
   margin: 0;
-  font-family: sans-serif;
 }
 
-/* ページタイトル */
-.title {
-  text-align: center;
-  font-size: 18px;
-  padding: 10px;
-}
-
-/* 縦並び */
+/* グリッドレイアウト */
 .gallery {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  gap: 10px;
 }
 
-/* 各ブロック */
-.item {
-  margin-bottom: 10px;
+/* スマホ（2列） */
+.gallery {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* PC（4列） */
+@media (min-width: 900px) {
+  .gallery {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .item img {
   width: 100%;
   height: auto;
   display: block;
-  cursor: pointer;
 }
 
-/* 画像タイトル */
 .caption {
   text-align: center;
   font-size: 14px;
-  padding: 5px;
 }
 
 /* ライトボックス */
@@ -59,23 +53,18 @@ body {
 }
 
 .lightbox img {
-  max-width: 95%;
+  max-width: 90%;
   max-height: 70%;
-  object-fit: contain;
 }
 
-/* 拡大時キャプション */
 .description {
   color: white;
   padding: 10px;
-  text-align: center;
 }
 
-/* ボタン */
 .nav {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   font-size: 40px;
   color: white;
   cursor: pointer;
@@ -96,8 +85,6 @@ body {
 </head>
 
 <body>
-
-<div class="title">神社ギャラリー</div>
 
 <div class="gallery">
 
@@ -133,22 +120,22 @@ body {
 const images = [
   {
     src: "https://raw.githubusercontent.com/andotama24/gazo/main/拝殿正面.JPG",
-    desc: "拝殿の正面の様子です"
+    desc: "拝殿の正面です"
   },
   {
     src: "https://raw.githubusercontent.com/andotama24/gazo/main/鳥居.JPG",
-    desc: "入口に立つ鳥居です"
+    desc: "鳥居です"
   },
   {
     src: "https://raw.githubusercontent.com/andotama24/gazo/main/手水舎.JPG",
-    desc: "手を清める手水舎です"
+    desc: "手水舎です"
   }
 ];
 
 let current = 0;
 
-function openBox(index) {
-  current = index;
+function openBox(i) {
+  current = i;
   show();
   document.getElementById("lightbox").style.display = "flex";
 }
