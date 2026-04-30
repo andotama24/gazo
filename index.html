@@ -3,31 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>神社ギャラリー</title>
 
 <style>
 body {
+  font-family: sans-serif;
   margin: 0;
+  padding: 10px;
 }
 
-/* グリッドレイアウト */
 .gallery {
   display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 
-/* スマホ（2列） */
-.gallery {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-/* PC（4列） */
-@media (min-width: 900px) {
-  .gallery {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.item img {
+.gallery img {
   width: 100%;
   height: auto;
   display: block;
@@ -38,124 +29,47 @@ body {
   font-size: 14px;
 }
 
-/* ライトボックス */
-.lightbox {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* タブレット */
+@media (max-width: 900px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.lightbox img {
-  max-width: 90%;
-  max-height: 70%;
-}
-
-.description {
-  color: white;
-  padding: 10px;
-}
-
-.nav {
-  position: absolute;
-  top: 50%;
-  font-size: 40px;
-  color: white;
-  cursor: pointer;
-}
-
-.prev { left: 10px; }
-.next { right: 10px; }
-
-.close {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  font-size: 30px;
-  color: white;
-  cursor: pointer;
+/* スマホ */
+@media (max-width: 600px) {
+  .gallery {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="gallery">
+<h2 style="text-align:center;">神社ギャラリー</h2>
 
-  <div class="item">
-    <img src="https://raw.githubusercontent.com/andotama24/gazo/main/拝殿正面.JPG" onclick="openBox(0)">
-    <div class="caption">拝殿 正面</div>
+<div class="gallery">
+  <div>
+    <img src="画像URL1">
+    <div class="caption">拝殿正面</div>
   </div>
 
-  <div class="item">
-    <img src="https://raw.githubusercontent.com/andotama24/gazo/main/鳥居.JPG" onclick="openBox(1)">
+  <div>
+    <img src="画像URL2">
     <div class="caption">鳥居</div>
   </div>
 
-  <div class="item">
-    <img src="https://raw.githubusercontent.com/andotama24/gazo/main/手水舎.JPG" onclick="openBox(2)">
+  <div>
+    <img src="画像URL3">
     <div class="caption">手水舎</div>
   </div>
 
+  <div>
+    <img src="画像URL4">
+    <div class="caption">境内</div>
+  </div>
 </div>
-
-<!-- ライトボックス -->
-<div class="lightbox" id="lightbox">
-  <span class="close" onclick="closeBox()">×</span>
-  <span class="nav prev" onclick="change(-1)">＜</span>
-
-  <img id="lightbox-img">
-  <div class="description" id="desc"></div>
-
-  <span class="nav next" onclick="change(1)">＞</span>
-</div>
-
-<script>
-const images = [
-  {
-    src: "https://raw.githubusercontent.com/andotama24/gazo/main/拝殿正面.JPG",
-    desc: "拝殿の正面です"
-  },
-  {
-    src: "https://raw.githubusercontent.com/andotama24/gazo/main/鳥居.JPG",
-    desc: "鳥居です"
-  },
-  {
-    src: "https://raw.githubusercontent.com/andotama24/gazo/main/手水舎.JPG",
-    desc: "手水舎です"
-  }
-];
-
-let current = 0;
-
-function openBox(i) {
-  current = i;
-  show();
-  document.getElementById("lightbox").style.display = "flex";
-}
-
-function show() {
-  document.getElementById("lightbox-img").src = images[current].src;
-  document.getElementById("desc").innerText = images[current].desc;
-}
-
-function closeBox() {
-  document.getElementById("lightbox").style.display = "none";
-}
-
-function change(step) {
-  current += step;
-  if (current < 0) current = images.length - 1;
-  if (current >= images.length) current = 0;
-  show();
-}
-</script>
 
 </body>
 </html>
