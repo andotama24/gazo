@@ -3,18 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>神社ギャラリー</title>
 
 <style>
-body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 10px;
-}
-
 .gallery {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr); /* PC 4列 */
   gap: 10px;
 }
 
@@ -32,44 +25,31 @@ body {
 /* タブレット */
 @media (max-width: 900px) {
   .gallery {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* 2列 */
   }
 }
 
 /* スマホ */
 @media (max-width: 600px) {
   .gallery {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(1, 1fr); /* 1列 */
   }
 }
 </style>
-</head>
-
-<body>
-
-<h2 style="text-align:center;">神社ギャラリー</h2>
 
 <div class="gallery">
   <div>
-    <img src="画像URL1">
+    <img src="https://raw.githubusercontent.com/andotama24/gazo/main/拝殿正面.JPG" onclick="openBox(0)">
     <div class="caption">拝殿正面</div>
   </div>
 
   <div>
-    <img src="画像URL2">
+    <img src="https://raw.githubusercontent.com/andotama24/gazo/main/鳥居.JPG" onclick="openBox(1)">
     <div class="caption">鳥居</div>
   </div>
 
   <div>
-    <img src="画像URL3">
+    <img src="https://raw.githubusercontent.com/andotama24/gazo/main/手水舎.JPG" onclick="openBox(2)">
     <div class="caption">手水舎</div>
   </div>
-
-  <div>
-    <img src="画像URL4">
-    <div class="caption">境内</div>
-  </div>
 </div>
-
-</body>
-</html>
