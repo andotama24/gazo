@@ -1,1 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>画像ギャラリー</title>
+
+<style>
+body {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+/* ===== ギャラリー ===== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* タブレット */
+@media (max-width: 900px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* スマホ */
+@media (max-width: 500px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* サムネイル */
+.item {
+  cursor: pointer;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.thumb-title {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+/* ===== ライトボックス ===== */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  text-align: center;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 80%;
+  margin-top: 60px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  background: rgba(0,0,0,0.5);
+  padding: 8px 12px;
+  border-radius: 5px;
+}
+
+/* 前後ボタン */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+</style>
+</head>
+
+<body>
+
+<h2>画像クリックで拡大</h2>
+
+<!-- ===== ギャラリー ===== -->
+<div class="gallery">
+
+  <div class="item" onclick="openLightbox(0)">
+    <img src="https://drive.google.com/uc?id=102eGRjL5pUJ9PLr2Yn2aqmsf6wzFfyoC">
+    <p class="thumb-title">拝殿正面</p>
+  </div>
+
+  <div class="item" onclick="openLightbox(1)">
+    <img src="https://drive.google.com/uc?id=1cLTd87iYyKPYhIjfYhXfrgsteUNLs0OI">
+    <p class="thumb-title">鳥居</p>
+  </div>
+
+  <div class="item" onclick="openLightbox(2)">
+    <img src="https://drive.google.com/uc?id=1yPzsqZUPpeSLHM22yA-LsI_aloRkXcfG">
+    <p class="thumb-title">手水舎</p>
+  </div>
+
+  <div class="item" onclick="openLightbox(3)">
+    <img src="https://drive.google.com/uc?id=1RUgUTroKhClEL2G7_E5IeQeSLUKBMHWW">
+    <p class="thumb-title">裏門</p>
+  </div>
+
+</div>
+
+<!-- ===== ライトボックス ===== -->
+<div id="lightbox" class="lightbox">
+
+  <span class="close" onclick="closeLightbox()">閉じる</span>
+
+  <span class="prev" onclick="changeSlide(-1)">❮</span>
+  <span class="next" onclick="changeSlide(1)">❯</span>
+
+  <img id="lightbox-img">
+  <p id="caption" style="color:white;"></p>
+
+</div>
+
+<script>
+const images = [
+  {
+    src: "https://drive.google.com/uc?id=102eGRjL5pUJ9PLr2Yn2aqmsf6wzFfyoC",
+    caption: "陣笠の形をした唐破風屋根"
+  },
+  {
+    src: "https://drive.google.com/uc?id=1cLTd87iYyKPYhIjfYhXfrgsteUNLs0OI",
+    caption: "鳥居"
+  },
+  {
+    src: "https://drive.google.com/uc?id=1yPzsqZUPpeSLHM22yA-LsI_aloRkXcfG",
+    caption: "手水舎"
+  },
+  {
+    src: "https://drive.google.com/uc?id=1RUgUTroKhClEL2G7_E5IeQeSLUKBMHWW",
+    caption: "裏門"
+  }
+];
+
+let currentIndex = 0;
+
+function openLightbox(index) {
+  currentIndex = index;
+  document.getElementById("lightbox").style.display = "block";
+  showImage();
+}
+
+function showImage() {
+  document.getElementById("lightbox-img").src = images[currentIndex].src;
+  document.getElementById("caption").innerText = images[currentIndex].caption;
+}
+
+function changeSlide(direction) {
+  currentIndex += direction;
+  if (currentIndex < 0) currentIndex = images.length - 1;
+  if (currentIndex >= images.length) currentIndex = 0;
+  showImage();
+}
+
+function closeLightbox() {
+  document.getElementById("lightbox").style.display = "none";
+}
+
+/* スワイプ対応 */
+let startX = 0;
+const lightbox = document.getElementById("lightbox");
+
+lightbox.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+
+lightbox.addEventListener("touchend", e => {
+  let diff = e.changedTouches[0].clientX - startX;
+  if (diff > 50) changeSlide(-1);
+  if (diff < -50) changeSlide(1);
+});
+</script>
+
+</body>
+</html>
 
