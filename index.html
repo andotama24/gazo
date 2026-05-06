@@ -18,15 +18,17 @@ body {
   gap: 10px;
 }
 
+/* タブレット */
 @media (max-width: 900px) {
   .gallery {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
+/* スマホも2列に固定 */
 @media (max-width: 500px) {
   .gallery {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -128,18 +130,18 @@ body {
 const images = [
   {
     src: "https://raw.githubusercontent.com/andotama24/gazo/main/haiden.jpg",
-    caption: ""陣笠の形をした唐破風屋根""
+    caption: "陣笠の形をした唐破風屋根"
   },
   {
     src: "https://raw.githubusercontent.com/andotama24/gazo/main/torii.jpg",
     caption: "鳥居"
   },
   {
-    src: "https://raw.githubusercontent.com/andotama24/gazo/main/temizusya1.jpg",
+    src: "https://raw.githubusercontent.com/andotama24/gazo/main/temizusya.jpg",
     caption: "手水舎"
   },
   {
-    src: "https://raw.githubusercontent.com/andotama24/gazo/main/uramon%20(1).jpg",
+    src: "https://raw.githubusercontent.com/andotama24/gazo/main/uramon.jpg",
     caption: "裏門"
   }
 ];
