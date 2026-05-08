@@ -17,16 +17,16 @@ body{
 
 .gallery{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:12px;
 }
 
-/* タブレット */
-@media screen and (max-width:900px){
-  .gallery{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
+
+
+
+
+
+
 
 /* スマホ */
 @media screen and (max-width:600px){
@@ -94,11 +94,11 @@ body{
 
 .close{
   position:absolute;
-  top:20px;
-  right:25px;
-  color:white;
-  font-size:30px;
-  cursor:pointer;
+  top:40px;
+  right:40px;
+  background:rgba(0,0,0,0.6);
+  padding:8px 14px;
+  border-radius:8px;
 }
 
 .prev,
