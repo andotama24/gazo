@@ -4,171 +4,134 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>画像ギャラリー</title>
+<title>神社ギャラリー</title>
 
 <style>
-body {
-  font-family: sans-serif;
-  text-align: center;
+
+body{
+    margin:0;
+    padding:20px;
+    font-family:sans-serif;
+    background:#f5f5f5;
 }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+h1{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.gallery img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.gallery img:hover{
+    transform:scale(1.03);
 }
 
 /* タブレット */
-@media (max-width: 900px) {
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
+@media(max-width:900px){
+    .gallery{
+        grid-template-columns:repeat(2,1fr);
+    }
 }
 
-/* スマホも2列に固定 */
-@media (max-width: 500px) {
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.item { cursor: pointer; }
-
-.gallery img {
-  width: 100%;
-  border-radius: 8px;
-}
-
-.thumb-title {
-  margin-top: 5px;
-  font-size: 14px;
+/* スマホ */
+@media(max-width:600px){
+    .gallery{
+        grid-template-columns:1fr;
+    }
 }
 
 /* ライトボックス */
-.lightbox {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  text-align: center;
+
+.lightbox{
+    display:none;
+    position:fixed;
+    z-index:9999;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.9);
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
 }
 
-.lightbox img {
-  max-width: 90%;
-  max-height: 80%;
-  margin-top: 60px;
+.lightbox img{
+    max-width:95%;
+    max-height:80%;
+    border-radius:10px;
 }
 
-.close {
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  background: rgba(0,0,0,0.5);
-  padding: 8px 12px;
-  border-radius: 5px;
+.close{
+    color:white;
+    font-size:20px;
+    margin-top:20px;
+    cursor:pointer;
+    background:#333;
+    padding:10px 20px;
+    border-radius:8px;
 }
 
-.prev, .next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: white;
-  font-size: 40px;
-  cursor: pointer;
-  padding: 10px;
-}
-
-.prev { left: 10px; }
-.next { right: 10px; }
 </style>
 </head>
 
 <body>
 
-<h2>画像クリックで拡大</h2>
+<h1>神社ギャラリー</h1>
 
 <div class="gallery">
 
-  <div class="item" onclick="openLightbox(0)">
-    <img src="https://raw.githubusercontent.com/andotama24/gazo/main/haiden.jpg">
-    <p class="thumb-title">拝殿正面</p>
-  </div>
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/haiden.jpg" alt="拝殿">
 
-  <div class="item" onclick="openLightbox(1)">
-    <img src="https://raw.githubusercontent.com/andotama24/gazo/main/torii.jpg">
-    <p class="thumb-title">鳥居</p>
-  </div>
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/torii.jpg" alt="鳥居">
 
-  <div class="item" onclick="openLightbox(2)">
-    <img src="https://raw.githubusercontent.com/andotama24/gazo/main/temizusya.jpg">
-    <p class="thumb-title">手水舎</p>
-  </div>
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/uramon.jpg" alt="裏門">
 
-  <div class="item" onclick="openLightbox(3)">
-    <img src="https://raw.githubusercontent.com/andotama24/gazo/main/uramon.jpg">
-    <p class="thumb-title">裏門</p>
-  </div>
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/sando.jpg" alt="参道">
 
 </div>
 
-<div id="lightbox" class="lightbox">
-  <span class="close" onclick="closeLightbox()">閉じる</span>
-  <span class="prev" onclick="changeSlide(-1)">❮</span>
-  <span class="next" onclick="changeSlide(1)">❯</span>
-  <img id="lightbox-img">
-  <p id="caption" style="color:white;"></p>
+<div class="lightbox" id="lightbox">
+    <img id="lightbox-img">
+    <div class="close" onclick="closeLightbox()">閉じる</div>
 </div>
 
 <script>
-const images = [
-  {
-    src: "https://raw.githubusercontent.com/andotama24/gazo/main/haiden.jpg",
-    caption: "陣笠の形をした唐破風屋根"
-  },
-  {
-    src: "https://raw.githubusercontent.com/andotama24/gazo/main/torii.jpg",
-    caption: "鳥居"
-  },
-  {
-    src: "https://raw.githubusercontent.com/andotama24/gazo/main/temizusya.jpg",
-    caption: "手水舎"
-  },
-  {
-    src: "https://raw.githubusercontent.com/andotama24/gazo/main/uramon.jpg",
-    caption: "裏門"
-  }
-];
 
-let currentIndex = 0;
+const images = document.querySelectorAll('.gallery img');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
 
-function openLightbox(index) {
-  currentIndex = index;
-  document.getElementById("lightbox").style.display = "block";
-  showImage();
+images.forEach(img => {
+    img.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+    });
+});
+
+function closeLightbox(){
+    lightbox.style.display = 'none';
 }
 
-function showImage() {
-  document.getElementById("lightbox-img").src = images[currentIndex].src;
-  document.getElementById("caption").innerText = images[currentIndex].caption;
-}
+lightbox.addEventListener('click', function(e){
+    if(e.target === lightbox){
+        closeLightbox();
+    }
+});
 
-function changeSlide(direction) {
-  currentIndex += direction;
-  if (currentIndex < 0) currentIndex = images.length - 1;
-  if (currentIndex >= images.length) currentIndex = 0;
-  showImage();
-}
-
-function closeLightbox() {
-  document.getElementById("lightbox").style.display = "none";
-}
 </script>
 
 </body>
