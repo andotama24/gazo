@@ -153,3 +153,86 @@ onclick="openLightbox(3)">
 </div>
 
 </div>
+
+<!-- ライトボックス -->
+
+<div class="lightbox" id="lightbox">
+
+<div class="lightbox-content">
+
+<div class="close" onclick="closeLightbox()">✕</div>
+
+<div class="prev" onclick="changeSlide(-1)">❮</div>
+
+<img id="lightbox-img">
+
+<div class="next" onclick="changeSlide(1)">❯</div>
+
+<div class="caption" id="caption"></div>
+
+</div>
+</div>
+
+<script>
+
+const images = [
+{
+src:"https://raw.githubusercontent.com/andotama24/gazo/main/haiden.jpg",
+caption:"陣笠の形をした唐破風屋根"
+},
+{
+src:"https://raw.githubusercontent.com/andotama24/gazo/main/torii.jpg",
+caption:"神社入口の鳥居"
+},
+{
+src:"https://raw.githubusercontent.com/andotama24/gazo/main/uramon.jpg",
+caption:"裏門の景観"
+},
+{
+src:"https://raw.githubusercontent.com/andotama24/gazo/main/sando.jpg",
+caption:"参道の風景"
+}
+];
+
+let currentIndex = 0;
+
+function openLightbox(index){
+
+currentIndex = index;
+
+document.getElementById("lightbox").style.display = "block";
+
+document.getElementById("lightbox-img").src =
+images[index].src;
+
+document.getElementById("caption").innerText =
+images[index].caption;
+}
+
+function closeLightbox(){
+document.getElementById("lightbox").style.display = "none";
+}
+
+function changeSlide(step){
+
+currentIndex += step;
+
+if(currentIndex < 0){
+currentIndex = images.length - 1;
+}
+
+if(currentIndex >= images.length){
+currentIndex = 0;
+}
+
+document.getElementById("lightbox-img").src =
+images[currentIndex].src;
+
+document.getElementById("caption").innerText =
+images[currentIndex].caption;
+}
+
+</script>
+
+</body>
+</html>
