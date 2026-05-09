@@ -39,7 +39,7 @@ body{
 .title{
   padding:10px;
   text-align:center;
-  font-size:14px;
+  font-size:20px;
 }
 
 /* ライトボックス */
@@ -74,8 +74,12 @@ body{
 .caption{
   color:white;
   margin-top:15px;
-  font-size:18px;
+  font-size:20px;
   text-align:center;
+}
+
+.zoom-text{
+  font-size:20px;
 }
 
 .close{
@@ -89,6 +93,7 @@ body{
   padding:8px 14px;
   border-radius:8px;
   z-index:10000;
+}
 
 .prev,
 .next{
@@ -195,7 +200,9 @@ document.getElementById("lightbox-img").src =
 images[index].src;
 
 document.getElementById("caption").innerHTML =
-images[index].caption + "<br><span class='zoom-text'>クリックして拡大</span>";
+images[index].caption +
+"<br><span class='zoom-text'>クリックして拡大</span>";
+}
 
 function closeLightbox(){
 document.getElementById("lightbox").style.display = "none";
@@ -217,15 +224,11 @@ document.getElementById("lightbox-img").src =
 images[currentIndex].src;
 
 document.getElementById("caption").innerHTML =
-images[currentIndex].caption + "<br><span class='zoom-text'>クリックして拡大</span>";
-
-.zoom-text{
-  font-size:20px;
+images[currentIndex].caption +
+"<br><span class='zoom-text'>クリックして拡大</span>";
 }
 
 </script>
 
 </body>
 </html>
-
-
