@@ -39,7 +39,7 @@ body{
 .title{
   padding:10px;
   text-align:center;
-  font-size:20px;
+  font-size:14px;
 }
 
 /* ライトボックス */
@@ -74,12 +74,8 @@ body{
 .caption{
   color:white;
   margin-top:15px;
-  font-size:20px;
+  font-size:18px;
   text-align:center;
-}
-
-.zoom-text{
-  font-size:20px;
 }
 
 .close{
@@ -93,7 +89,6 @@ body{
   padding:8px 14px;
   border-radius:8px;
   z-index:10000;
-}
 
 .prev,
 .next{
@@ -125,33 +120,25 @@ body{
 <div class="item">
 <img src="https://raw.githubusercontent.com/andotama24/gazo/main/haiden.jpg"
 onclick="openLightbox(0)">
-<div class="title">
-拝殿正面<br>
-<span class="zoom-text">クリックして拡大</span>
+<div class="title">拝殿正面</div>
 </div>
 
 <div class="item">
 <img src="https://raw.githubusercontent.com/andotama24/gazo/main/torii.jpg"
 onclick="openLightbox(1)">
-<div class="title">
-鳥居<br>
-<span class="zoom-text">クリックして拡大</span>
+<div class="title">鳥居</div>
 </div>
 
 <div class="item">
 <img src="https://raw.githubusercontent.com/andotama24/gazo/main/uramon.jpg"
 onclick="openLightbox(2)">
-<div class="title">
-裏門<br>
-<span class="zoom-text">クリックして拡大</span>
+<div class="title">裏門</div>
 </div>
 
 <div class="item">
 <img src="https://raw.githubusercontent.com/andotama24/gazo/main/temizusya.jpg"
 onclick="openLightbox(3)">
-<div class="title">
-手水舎<br>
-<span class="zoom-text">クリックして拡大</span>
+<div class="title">手水舎</div>
 </div>
 
 </div>
@@ -207,9 +194,8 @@ document.getElementById("lightbox").style.display = "block";
 document.getElementById("lightbox-img").src =
 images[index].src;
 
-document.getElementById("caption").innerHTML =
-images[index].caption +
-"<br><span class='zoom-text'>クリックして拡大</span>";
+document.getElementById("caption").innerText =
+images[index].caption;
 }
 
 function closeLightbox(){
@@ -231,9 +217,8 @@ currentIndex = 0;
 document.getElementById("lightbox-img").src =
 images[currentIndex].src;
 
-document.getElementById("caption").innerHTML =
-images[currentIndex].caption +
-"<br><span class='zoom-text'>クリックして拡大</span>";
+document.getElementById("caption").innerText =
+images[currentIndex].caption;
 }
 
 </script>
