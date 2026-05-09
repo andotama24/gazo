@@ -194,9 +194,8 @@ document.getElementById("lightbox").style.display = "block";
 document.getElementById("lightbox-img").src =
 images[index].src;
 
-document.getElementById("caption").innerText =
-images[index].caption;
-}
+document.getElementById("caption").innerHTML =
+images[index].caption + "<br><span class='zoom-text'>クリックして拡大</span>";
 
 function closeLightbox(){
 document.getElementById("lightbox").style.display = "none";
@@ -217,8 +216,11 @@ currentIndex = 0;
 document.getElementById("lightbox-img").src =
 images[currentIndex].src;
 
-document.getElementById("caption").innerText =
-images[currentIndex].caption;
+document.getElementById("caption").innerHTML =
+images[currentIndex].caption + "<br><span class='zoom-text'>クリックして拡大</span>";
+
+.zoom-text{
+  font-size:20px;
 }
 
 </script>
