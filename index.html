@@ -191,6 +191,31 @@ onclick="openLightbox(0)">
 <div class="title">筆塚</div>
 </div>
 
+
+</div>
+
+<!-- ライトボックス -->
+
+<div class="lightbox" id="lightbox">
+
+<div class="lightbox-content">
+
+<div class="close" onclick="closeLightbox()">閉じる</div>
+
+<div class="prev" onclick="changeSlide(-1)">❮</div>
+
+<img id="lightbox-img">
+
+<div class="next" onclick="changeSlide(1)">❯</div>
+
+<div class="caption" id="caption"></div>
+
+</div>
+</div>
+
+<script>
+
+const images = [
 {
 src="https://raw.githubusercontent.com/andotama24/gazo/main/kyutosyogu.jpg"
 caption:"東照宮石碑</"
