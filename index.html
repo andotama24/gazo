@@ -119,6 +119,18 @@ grid-template-columns:repeat(4,1fr);
 <div class="gallery">
 
 <div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/kyutosyogu.jpg"
+onclick="openLightbox(0)">
+<div class="title">東照宮石碑</div>
+</div>
+
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/sinmon.jpg"
+onclick="openLightbox(1)">
+<div class="title">神門（唐門）</div>
+</div>
+
+<div class="item">
 <img src="https://raw.githubusercontent.com/andotama24/gazo/main/haiden.jpg"
 onclick="openLightbox(0)">
 <div class="title">拝殿正面</div>
@@ -126,62 +138,106 @@ onclick="openLightbox(0)">
 
 <div class="item">
 <img src="https://raw.githubusercontent.com/andotama24/gazo/main/torii.jpg"
-onclick="openLightbox(1)">
+onclick="openLightbox(3)">
 <div class="title">鳥居</div>
 </div>
 
 <div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/temizusya.jpg"
+onclick="openLightbox(0)">
+<div class="title">手水舎</div>
+</div>
+
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/touhei.jpg"
+onclick="openLightbox(0)">
+<div class="title">透塀</div>
+</div>
+
+<div class="item">
 <img src="https://raw.githubusercontent.com/andotama24/gazo/main/uramon.jpg"
-onclick="openLightbox(2)">
+onclick="openLightbox(0)">
 <div class="title">裏門</div>
 </div>
 
 <div class="item">
-<img src="https://raw.githubusercontent.com/andotama24/gazo/main/temizusya.jpg"
-onclick="openLightbox(3)">
-<div class="title">手水舎</div>
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/gokusyo.jpg"
+onclick="openLightbox(0)">
+<div class="title">御供所</div>
 </div>
 
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/hondentoisinoma.jpg"
+onclick="openLightbox(0)">
+<div class="title">本殿と石の間</div>
 </div>
 
-<!-- ライトボックス -->
-
-<div class="lightbox" id="lightbox">
-
-<div class="lightbox-content">
-
-<div class="close" onclick="closeLightbox()">閉じる</div>
-
-<div class="prev" onclick="changeSlide(-1)">❮</div>
-
-<img id="lightbox-img">
-
-<div class="next" onclick="changeSlide(1)">❯</div>
-
-<div class="caption" id="caption"></div>
-
-</div>
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/sinmonnoaoinomon.jpg"
+onclick="openLightbox(0)">
+<div class="title">神門の葵の紋</div>
 </div>
 
-<script>
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/futakamisya.jog"
+onclick="openLightbox(0)">
+<div class="title">二神社.</div>
+</div>
 
-const images = [
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/fudetuka.jpg"
+onclick="openLightbox(0)">
+<div class="title">筆塚</div>
+</div>
+
+{
+src="https://raw.githubusercontent.com/andotama24/gazo/main/kyutosyogu.jpg"
+caption:"東照宮石碑</"
+},
+{
+src="https://raw.githubusercontent.com/andotama24/gazo/main/sinmon.jpg"
+caption:"神門（唐門）"
+},
 {
 src:"https://raw.githubusercontent.com/andotama24/gazo/main/haiden.jpg",
 caption:"陣笠の形をした唐破風屋根"
 },
 {
 src:"https://raw.githubusercontent.com/andotama24/gazo/main/torii.jpg",
-caption:"神社入口の鳥居"
-},
-{
-src:"https://raw.githubusercontent.com/andotama24/gazo/main/uramon.jpg",
-caption:"裏門の景観"
-},
+caption:"木製の鳥居"
+}
 {
 src:"https://raw.githubusercontent.com/andotama24/gazo/main/temizusya.jpg",
 caption:"手を洗い身を清める所"
-}
+},
+{
+src="https://raw.githubusercontent.com/andotama24/gazo/main/touhei.jpg"
+caption:"透塀"
+},
+{
+src="https://raw.githubusercontent.com/andotama24/gazo/main/uramon.jpg"
+caption:"裏門"
+},
+{
+src="https://raw.githubusercontent.com/andotama24/gazo/main/gokusyo.jpg"
+caption:"御供所"
+},
+{
+src="https://raw.githubusercontent.com/andotama24/gazo/main/hondentoisinoma.jpg"
+caption:"本殿と石の間"
+},
+{
+src="https://raw.githubusercontent.com/andotama24/gazo/main/sinmonnoaoinomon.jpg"
+caption:"神門の葵の紋"
+},
+{
+src="https://raw.githubusercontent.com/andotama24/gazo/main/futakamisya.jog"
+caption:"二神社"
+},
+{
+src="https://raw.githubusercontent.com/andotama24/gazo/main/fudetuka.jpg"
+caption:"筆塚"
+},
 ];
 
 let currentIndex = 0;
