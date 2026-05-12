@@ -1,6 +1,322 @@
-<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>sonota</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+  margin:0;
+  padding:10px;
+  font-family:sans-serif;
+  background:#f5f5f5;
+  overflow-x:hidden;
+}
+
+/* ギャラリー */
+
+.gallery{
+  display:grid;
+grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.item{
+  background:white;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 2px 6px rgba(0,0,0,0.15);
+}
+
+.item img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+  cursor:pointer;
+}
+
+.title{
+  padding:10px;
+  text-align:center;
+  font-size:14px;
+}
+
+/* ライトボックス */
+
+.lightbox{
+  display:none;
+  position:absolute;
+  z-index:9999;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.9);
+}
+
+.lightbox-content{
+  position:relative;
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+.lightbox img{
+  max-width:92%;
+  max-height:75%;
+  border-radius:10px;
+}
+
+.caption{
+  color:white;
+  margin-top:15px;
+  font-size:18px;
+  text-align:center;
+}
+
+.close{
+  position:absolute;
+  top:40px;
+  right:40px;
+  background:rgba(0,0,0,0.6);
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+  padding:8px 14px;
+  border-radius:8px;
+  z-index:10000;
+}
+
+.prev,
+.next{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  color:white;
+  font-size:45px;
+  cursor:pointer;
+  user-select:none;
+  padding:15px;
+}
+
+.prev{
+  left:10px;
+}
+
+.next{
+  right:10px;
+}
+
+</style>
 </head>
+
+<body>
+
+<div class="gallery">
+
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/kyuutosyougu.jpg"
+onclick="openLightbox(0)">
+<div class="title">東照宮旧石碑</div>
+</div>
+
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/matuyamajinnjyasekihi.jpg"
+onclick="openLightbox(1)">
+<div class="title">旧称松山神社石碑</div>
+</div>
+
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/takahamakyosi.jpg"
+onclick="openLightbox(2)">
+<div class="title">高浜虚子</div>
+</div>
+
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/sakaimokudan.jpg"
+onclick="openLightbox(3)">
+<div class="title">酒井黙騨</div>
+</div>
+
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/kinryuusakura.jpg"
+onclick="openLightbox(4)">
+<div class="title">金龍桜</div>
+</div>
+
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/sutanpu.jpg"
+onclick="openLightbox(5)">
+<div class="title">道後巡りスタンプ台</div>
+</div>
+
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/uramon.jpg"
+onclick="openLightbox(6)">
+<div class="title">宮からの眺望</div>
+</div>
+
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/gokusyo.jpg"
+onclick="openLightbox(7)">
+<div class="title">宮からの眺望</div>
+</div>
+<!--
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/hondentoisinoma.jpg"
+onclick="openLightbox(8)">
+<div class="title">本殿と石の間</div>
+</div>
+
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/sinmonnoaoinomon.jpg"
+onclick="openLightbox(9)">
+<div class="title">神門の葵の紋</div>
+</div>
+
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/futakamisya.jpg"
+onclick="openLightbox(10)">
+<div class="title">二神社.</div>
+</div>
+
+<div class="item">
+<img src="https://raw.githubusercontent.com/andotama24/gazo/main/fudetuka.jpg"
+onclick="openLightbox(11)">
+<div class="title">筆塚</div>
+</div>
+-->
+
+</div>
+
+<!-- ライトボックス -->
+
+<div class="lightbox" id="lightbox">
+
+<div class="lightbox-content">
+
+<div class="close" onclick="closeLightbox()">閉じる</div>
+
+<div class="prev" onclick="changeSlide(-1)">❮</div>
+
+<img id="lightbox-img">
+
+<div class="next" onclick="changeSlide(1)">❯</div>
+
+<div class="caption" id="caption"></div>
+
+</div>
+</div>
+
+<script>
+
+const images = [
+
+{
+src:"https://raw.githubusercontent.com/andotama24/gazo/main/kyuutosyougu.jpg",
+caption:"東照宮石碑"
+},
+
+{
+src:"https://raw.githubusercontent.com/andotama24/gazo/main/sinmon.jpg",
+caption:"神門（唐門）"
+},
+
+{
+src="https://raw.githubusercontent.com/andotama24/gazo/main/takahamakyosi.jpg"
+caption:"高浜虚子　しろ山のうぐいす啼く士族町"
+},
+
+{
+src="https://raw.githubusercontent.com/andotama24/gazo/main/sakaimokudan.jpg"
+caption:"酒井黙騨　東風の船高濱に着き五十春"
+},
+
+{
+src:"https://raw.githubusercontent.com/andotama24/gazo/main/kinryuusakura.jpg",
+caption:"金龍桜"
+},
+
+{
+src="https://raw.githubusercontent.com/andotama24/gazo/main/sutanpu.jpg"
+caption:"道後巡りスタンプ台"
+},
+
+{
+src:"https://raw.githubusercontent.com/andotama24/gazo/main/uramon.jpg",
+caption:"宮からの眺望"
+},
+
+{
+src:"https://raw.githubusercontent.com/andotama24/gazo/main/gokusyo.jpg",
+caption:"宮からの眺望"
+},
+/*
+{
+src:"https://raw.githubusercontent.com/andotama24/gazo/main/hondentoisinoma.jpg",
+caption:"本殿と石の間"
+},
+
+{
+src:"https://raw.githubusercontent.com/andotama24/gazo/main/sinmonnoaoinomon.jpg",
+caption:"神門の葵の紋"
+},
+
+{
+src:"https://raw.githubusercontent.com/andotama24/gazo/main/futakamisya.jpg",
+caption:"二神社"
+},
+
+{
+src:"https://raw.githubusercontent.com/andotama24/gazo/main/fudetuka.jpg",
+caption:"筆塚"
+},
+*/
+];
+
+let currentIndex = 0;
+
+function openLightbox(index){
+
+currentIndex = index;
+
+document.getElementById("lightbox").style.display = "block";
+
+document.getElementById("lightbox-img").src =
+images[index].src;
+
+document.getElementById("caption").innerText =
+images[index].caption;
+}
+
+function closeLightbox(){
+document.getElementById("lightbox").style.display = "none";
+}
+
+function changeSlide(step){
+
+currentIndex += step;
+
+if(currentIndex < 0){
+currentIndex = images.length - 1;
+}
+
+if(currentIndex >= images.length){
+currentIndex = 0;
+}
+
+document.getElementById("lightbox-img").src =
+images[currentIndex].src;
+
+document.getElementById("caption").innerText =
+images[currentIndex].caption;
+}
+
+</script>
+
+</body>
+</html>
